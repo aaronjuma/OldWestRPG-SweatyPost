@@ -48,6 +48,7 @@ public class GameManager {
 	Music bulletSound;
 	
 	DrawTextBox objective = new DrawTextBox();
+	boolean bulletActive;
 	public GameManager() {
 		chara = new Character(GAME_HEIGHT, GAME_WIDTH);
 		background = new BackgroundControl(chara.getDetails());
@@ -58,6 +59,7 @@ public class GameManager {
 		backMusic = new Music("src/resources/backgroundMusic.wav");
 		backMusic.play();
 		bulletSound = new Music("src/resources/gunshot.wav");
+		bulletActive = false;
 		//scene1 - 0
 		//quest1 - 1
 		//quest2 - 2
@@ -108,7 +110,7 @@ public class GameManager {
 		background.keyPressed(e);
 		jail.checkInput(chara.getDetails(), e);
 		hotel.checkInput(chara.getDetails(), e);
-		if(e.getKeyCode()==KeyEvent.VK_Q) {
+		if(e.getKeyCode()==KeyEvent.VK_Q && bulletActive == true) {
 			if(chara.getDetails().getJail() == false && bullet == null){
 				bullet = new Bullets(chara.getDetails());
 				bulletSound.play();
@@ -138,7 +140,6 @@ public class GameManager {
 			cutscenes.check();
 			if(cutscenes.isDialogueDone() == true) {
 				npc.getNPC(4).hide();
-				cutscenes.nextCutscene();
 				++event;
 				background.switchBackground("JC");
 			}
@@ -152,6 +153,7 @@ public class GameManager {
 								"(Hint: Press find a key)");		
 			objective.show();
 			if(jail.key() == true){
+				objective.setText("New Objective: Key found! Now escape jail cell");
 				background.move();
 				if(background.getBackground().getID().equals("JL")){
 					jail.questFinished();
@@ -175,6 +177,7 @@ public class GameManager {
 			if(shifty.isQuestDone() == true){
 				++event;
 				System.out.println("Quest Done");
+				cutscenes.nextCutscene();
 			}
 		}
 		
@@ -207,13 +210,14 @@ public class GameManager {
 			if(hotel.isQuestDone() == true) {
 				++event;
 				System.out.println("Quest is finished");
+				bulletActive = true;
 			}
 			
 		}
 		
 		//Quest 4 - Kill Earps
 		if(event == 5) {
-			objective.setText("New Objective: Find the Earps and kill them");
+			objective.setText("New Objective: Find the Earps and kill them (Press Q to shoot)");
 			if(!background.getBackground().getID().equals("RW")){
 				for(int i = 1; i <= 3; ++i){
 					npc.hide(i);

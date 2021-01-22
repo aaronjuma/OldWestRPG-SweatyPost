@@ -1,8 +1,6 @@
 package quest;
 
 import java.awt.event.KeyEvent;
-
-import background.Background;
 import character.CharacterDetails;
 
 public class EscapeJail extends Quest {

@@ -4,13 +4,7 @@ import game.GameManager;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
-
-import character.Bullets;
-import character.Character;
-
-import background.BackgroundControl;
 
 
 public class GamePanel extends JPanel implements Runnable{

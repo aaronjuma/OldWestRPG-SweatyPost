@@ -1,9 +1,6 @@
 package character;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.util.Random;
 
 import util.GameObject;
 
@@ -16,7 +13,7 @@ public class Bullets extends GameObject{
 	public Bullets(CharacterDetails details){
 		super(0,0, 30, 30);
 		this.direction = details.getDirection();
-		setY(details.getY() + (int)(0.5 * details.getHeight()));
+		setY(details.getY() + (int)(0.35 * details.getHeight()));
 		if(direction == 0) {
 			setX(details.getX());
 		}

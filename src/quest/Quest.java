@@ -1,9 +1,5 @@
 package quest;
 
-import character.CharacterDetails;
-import background.Background;
-
-
 public class Quest {
 	boolean isQuestFinished;
 	String targetBG;

@@ -6,11 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-
 import util.LinearSearch;
-
 import character.CharacterDetails;
 
 

@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.font.FontRenderContext;
-import java.awt.font.LineMetrics;
 
 import javax.swing.ImageIcon;
 
@@ -27,13 +26,8 @@ public class DialogueBox extends GameObject{
 		g.drawImage(textBox, getX(), getY(), width(), height(), null);
 		Graphics2D g2 = (Graphics2D) g;
         Font font = new Font("Comic Sans MS",Font.BOLD,25);
-        FontRenderContext context = g2.getFontRenderContext();
         g2.setFont(font);
-        int textWidth = (int) font.getStringBounds(text, context).getWidth();
-        LineMetrics ln = font.getLineMetrics(text, context);
-        int textHeight = (int) (ln.getAscent() + ln.getDescent());
         int x1 = 50;
-//        int y1 = (int)(getY() + (height() + textHeight)/2 - ln.getDescent());
         int y1 = 5;
 
         g2.setColor(Color.white);
