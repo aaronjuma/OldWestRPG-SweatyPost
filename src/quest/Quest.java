@@ -1,5 +1,9 @@
 package quest;
 
+import java.awt.event.KeyEvent;
+
+import character.CharacterDetails;
+
 public class Quest {
 	boolean isQuestFinished;
 	String targetBG;
@@ -17,8 +21,19 @@ public class Quest {
 		isQuestFinished = true;
 	}
 	
+	public void check(String ID) {
+		
+	}
+	
+	public void checkInput(CharacterDetails details, KeyEvent e){
+		
+	}
+	
 	public String getTarget() {
 		return targetBG;
 	}
 	
+	public boolean goal() {
+		return false;
+	}
 }

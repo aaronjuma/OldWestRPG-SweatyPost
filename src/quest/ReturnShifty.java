@@ -16,7 +16,7 @@ public class ReturnShifty extends Quest{
 		}
 	}
 	
-	public boolean inBar() {
+	public boolean goal() {
 		return inTarget;
 	}
 }

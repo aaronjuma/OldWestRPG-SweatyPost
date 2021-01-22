@@ -5,10 +5,12 @@ import npc.NPCManager;
 public class KillEarps extends Quest{
 
 	boolean inTarget;
+	NPCManager npc;
 	
-	public KillEarps() {
+	public KillEarps(NPCManager npc) {
 		super("RW");
 		inTarget = false;
+		this.npc = npc;
 	}
 
 	public void check(String ID) {
@@ -17,7 +19,7 @@ public class KillEarps extends Quest{
 		}
 	}
 	
-	public boolean allDead(NPCManager npc) {
+	public boolean goal() {
 		boolean returnValue = true;
 		for(int i = 1; i <= 3; ++i){
 			if(npc.getNPC(i).dead() == false){
@@ -26,4 +28,6 @@ public class KillEarps extends Quest{
 		}
 		return returnValue;
 	}
+	
+	
 }

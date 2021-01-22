@@ -30,7 +30,7 @@ public class EscapeJail extends Quest {
 		
 	}
 	
-	public boolean key() {
+	public boolean goal() {
 		return keyFound;
 	}
 }

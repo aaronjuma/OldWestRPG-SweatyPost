@@ -39,7 +39,7 @@ public class HotelChange extends Quest {
 		}
 	}
 
-	public boolean changed() {
+	public boolean goal() {
 		return changed;
 	}
 }

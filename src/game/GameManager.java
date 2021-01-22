@@ -17,6 +17,7 @@ import quest.EscapeJail;
 import quest.FindShifty;
 import quest.HotelChange;
 import quest.KillEarps;
+import quest.QuestManager;
 import quest.ReturnShifty;
 import util.Music;
 
@@ -35,37 +36,28 @@ public class GameManager {
 	Character chara;
 	NPCManager npc;
 	
-	EscapeJail jail = new EscapeJail();
-	HotelChange hotel = new HotelChange();
-	FindShifty shifty = new FindShifty();
-	KillEarps kill = new KillEarps();
-	ReturnShifty shifty2 = new ReturnShifty();
-	
 	CutsceneManager cutscenes;
-	
+	QuestManager quests;
 	DialogueBox dialogue;
+	DrawTextBox objective;
 	Music backMusic;
 	Music bulletSound;
-	
-	DrawTextBox objective = new DrawTextBox();
 	boolean bulletActive;
+	
+	
 	public GameManager() {
 		chara = new Character(GAME_HEIGHT, GAME_WIDTH);
 		background = new BackgroundControl(chara.getDetails());
 		npc = new NPCManager();
 		npc.hide(0);
+		objective = new DrawTextBox();
 		dialogue = new DialogueBox();
 		cutscenes = new CutsceneManager(dialogue);
 		backMusic = new Music("src/resources/backgroundMusic.wav");
 		backMusic.play();
 		bulletSound = new Music("src/resources/gunshot.wav");
 		bulletActive = false;
-		//scene1 - 0
-		//quest1 - 1
-		//quest2 - 2
-		//scene2 - 3
-		//quest3 - 4
-		//quest4 - 5
+		quests = new QuestManager(chara.getDetails(), npc);
 	}
 	
 	
@@ -91,7 +83,6 @@ public class GameManager {
 			chara.move();
 		}
 		
-		
 		if(bullet != null){
 			bullet.move();
 			if(bullet.getX() >= 1000 || bullet.getX() < 0){
@@ -105,11 +96,11 @@ public class GameManager {
 		background.checkBoundaries();
 	}
 	
+	
 	public void keyPressed(KeyEvent e) {
 		chara.keyPressed(e);
 		background.keyPressed(e);
-		jail.checkInput(chara.getDetails(), e);
-		hotel.checkInput(chara.getDetails(), e);
+		quests.keyPressed(e);
 		if(e.getKeyCode()==KeyEvent.VK_Q && bulletActive == true) {
 			if(chara.getDetails().getJail() == false && bullet == null){
 				bullet = new Bullets(chara.getDetails());
@@ -118,13 +109,12 @@ public class GameManager {
 		}
 		cutscenes.checkInput(e);
 	}
+	
+	
 	public void keyReleased(KeyEvent e) {
 		chara.keyReleased(e);
 		cutscenes.keyReleased(e);
 	}
-	
-	
-	
 	
 	
 	public void check() {
@@ -152,15 +142,16 @@ public class GameManager {
 			objective.setText("New Objective: Escape Jail" +
 								"(Hint: Press find a key)");		
 			objective.show();
-			if(jail.key() == true){
+			if(quests.goal() == true){
 				objective.setText("New Objective: Key found! Now escape jail cell");
 				background.move();
 				if(background.getBackground().getID().equals("JL")){
-					jail.questFinished();
+					quests.questFinished();
 				}
 			}
-			if(jail.isQuestDone() == true){
+			if(quests.isQuestDone() == true){
 				++event;
+				quests.nextQuest();
 				System.out.println("Quest is finished");
 			}
 		}
@@ -168,13 +159,13 @@ public class GameManager {
 		//Quest 2 - Find Shifty
 		if(event == 2){
 			cutscene = false;
-			shifty.check(background.getBackground().getID());
+			quests.check(background.getBackground().getID());
 			objective.setText("New Objective: Find Shifty in the Saloon");
-			if(shifty.inBar()){
-				shifty.questFinished();
+			if(quests.goal()){
+				quests.questFinished();
 				npc.show(0);
 			}
-			if(shifty.isQuestDone() == true){
+			if(quests.isQuestDone() == true){
 				++event;
 				System.out.println("Quest Done");
 				cutscenes.nextCutscene();
@@ -188,6 +179,7 @@ public class GameManager {
 			cutscenes.check();
 			if(cutscenes.isDialogueDone() == true) {
 				++event;
+				quests.nextQuest();
 			}
 		}
 		
@@ -202,15 +194,16 @@ public class GameManager {
 				npc.show(0);
 			}
 			cutscene = false;
-			hotel.check(background.getBackground().getID());
-			if(hotel.changed() == true){
+			quests.check(background.getBackground().getID());
+			if(quests.goal() == true){
 				chara.getDetails().setJail(false);
-				hotel.questFinished();
+				quests.questFinished();
 			}
-			if(hotel.isQuestDone() == true) {
+			if(quests.isQuestDone() == true) {
 				++event;
 				System.out.println("Quest is finished");
 				bulletActive = true;
+				quests.nextQuest();
 			}
 			
 		}
@@ -238,12 +231,13 @@ public class GameManager {
 					}
 				}
 			}
-			if(kill.allDead(npc) == true){
-				kill.questFinished();
+			if(quests.goal() == true){
+				quests.questFinished();
 			}
-			if(kill.isQuestDone()){
+			if(quests.isQuestDone()){
 				++event;
 				System.out.println("Quest Done");
+				quests.nextQuest();
 			}
 		}
 		
@@ -251,12 +245,12 @@ public class GameManager {
 		//Quest 5 - Go Back to Shifty
 		if(event == 6) {
 			objective.setText("New Objective: Go back to Shifty");
-			shifty2.check(background.getBackground().getID());
-			if(shifty2.inBar()){
-				shifty2.questFinished();
+			quests.check(background.getBackground().getID());
+			if(quests.goal()){
+				quests.questFinished();
 				npc.show(0);
 			}
-			if(shifty2.isQuestDone() == true){
+			if(quests.isQuestDone() == true){
 				++event;
 				System.out.println("Quest Done");
 				cutscenes.nextCutscene();
