@@ -1,6 +1,15 @@
-package gui;
-import java.awt.*;
+/*
+ * GameFrame.java
+ * Sets up GUI Frame
+ * Aaron Jumarang, Benji Magyar-Samoila, Scott Boyd
+ * Jan 22 2021
+ * ICS4U
+ */
 
+
+package gui;
+
+import java.awt.*;
 import javax.swing.*;
 
 
@@ -8,6 +17,13 @@ public class GameFrame extends JFrame{
 
 	GamePanel panel;
 	
+	
+	/**
+	 * Constructor
+	 * Sets up GUI
+	 * pre : none
+	 * post : GUI is set up
+	 */
 	public GameFrame(){
 		JOptionPane.showMessageDialog(this,
 			    "Welcome to Sweaty Post! You will be playing young Slimy, who, with his brothers, just escaped Millworth\n" +

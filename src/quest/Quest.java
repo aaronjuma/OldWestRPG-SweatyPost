@@ -1,3 +1,10 @@
+/*
+ * Quest.java
+ * Superclass for all quest objects
+ * Scott Boyd
+ * Jan 22 2021
+ * ICS4U
+ */
 package quest;
 
 import java.awt.event.KeyEvent;

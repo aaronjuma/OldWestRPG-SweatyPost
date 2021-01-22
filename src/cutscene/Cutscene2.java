@@ -1,3 +1,11 @@
+/*
+ * Cutscene2.java
+ * Constrols second cutscene
+ * Aaron Jumarang
+ * Jan 22 2021
+ * ICS4U
+ */
+
 package cutscene;
 
 public class Cutscene2 extends Cutscene {
@@ -10,11 +18,24 @@ public class Cutscene2 extends Cutscene {
 			"I won't hesitate to kill you"
 	};
 	
+	
+	/**
+	 * Constructor
+	 * pre : none
+	 * post ; cutscene2 object created
+	 */
 	public Cutscene2(DialogueBox box) {
 		super(box);
 		setDialogue(dialogueList);
 	}
 	
+	
+	
+	/**
+	 * Runs cutscene
+	 * pre : none
+	 * post : cutscene is running
+	 */
 	public void check() {
 		if(currentDialogue < 5){
 			box.queue(dialogueList[currentDialogue]);

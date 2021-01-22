@@ -1,3 +1,10 @@
+/*
+ * NPCManager.java
+ * NPC object
+ * Benji Magyar-Samoila
+ * Jan 22 2021
+ * ICS4U
+ */
 package npc;
 
 import java.awt.Graphics;
@@ -7,6 +14,12 @@ public class NPCManager {
 	NPC shifty;
 	ArrayList<NPC> npclist;
 	
+	
+	/**
+	 * Constructor
+	 * pre : none
+	 * post : NPCManager created, NPCs also created
+	 */
 	public NPCManager() {
 		
 		//Adding Shifty
@@ -30,14 +43,35 @@ public class NPCManager {
 		npclist.get(4).position(0, 300);
 	}
 	
+	
+	
+	/**
+	 * Show an NPC
+	 * pre : n >= 0
+	 * post : NPC is shown
+	 */
 	public void show(int n){
 		npclist.get(n).show();
 	}
 	
+	
+	
+	/**
+	 * Hides an NPC
+	 * pre : n >= 0
+	 * post : NPC is hidden
+	 */
 	public void hide(int n){
 		npclist.get(n).hide();
 	}
 	
+	
+	
+	/**
+	 * Draws an NPC
+	 * pre : none
+	 * post : NPC is drawn
+	 */
 	public void draw(Graphics g){
 		for(int i = 0; i < npclist.size(); ++i){
 			NPC temp = npclist.get(i);
@@ -47,6 +81,13 @@ public class NPCManager {
 		}
 	}
 	
+	
+	
+	/**
+	 * Returns an NPC
+	 * pre : n >= 0
+	 * post : NPC is returned
+	 */
 	public NPC getNPC(int n) {
 		return npclist.get(n);
 	}

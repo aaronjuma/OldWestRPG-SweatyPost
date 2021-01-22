@@ -1,7 +1,14 @@
+/*
+ * GamePanel.java
+ * Panel for GUI
+ * Aaron Jumarang, Benji Magyar-Samoila, Scott Boyd
+ * Jan 22 2021
+ * ICS4U
+ */
+
 package gui;
 
 import game.GameManager;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,7 +24,13 @@ public class GamePanel extends JPanel implements Runnable{
 	Graphics graphics;
 	GameManager game;
 	
-	GamePanel() {
+	
+	/**
+	 * Constructor
+	 * pre : none
+	 * post : game thread is running
+	 */
+	public GamePanel() {
 		game = new GameManager();
 		this.setFocusable(true);
 		this.addKeyListener(new AL());
@@ -26,6 +39,13 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread.start();
 	}
 	
+	
+	
+	/**
+	 * Paints components onto frame
+	 * pre : none
+	 * post : components painted
+	 */
 	public void paint(Graphics g){
 		super.paint(g);
 		image = createImage(getWidth(), getHeight());
@@ -36,21 +56,46 @@ public class GamePanel extends JPanel implements Runnable{
 		game.draw(g);
 	}
 	
+	
+	
+	/**
+	 * draw components onto frame
+	 * pre : none
+	 * post : components drawn
+	 */
 	public void draw(Graphics g){
 		Toolkit.getDefaultToolkit().sync();
 	}
 	
+	
+	
+	/**
+	 * moves components
+	 * pre : none
+	 * post : components are moving
+	 */
 	public void move() {
 		game.move();
 	}
+
 	
-	public void checkCollision() {
-	}
 	
+	/**
+	 * Runs game storyboard
+	 * pre : none
+	 * post : story is running
+	 */
 	public void check() {
 		game.check();
 	}
 	
+	
+	
+	/**
+	 * Game thread
+	 * pre : none
+	 * post : game is running
+	 */
 	public void run() {
 		//game loop
 		long lastTime = System.nanoTime();
@@ -63,7 +108,6 @@ public class GamePanel extends JPanel implements Runnable{
 			lastTime = now;
 			if(delta >=1) {
 				move();
-				checkCollision();
 				check();
 				repaint();
 				delta--;
@@ -71,10 +115,25 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 	
+	
+	
+	/**
+	 * Class that reads input from keyboard
+	 */
 	public class AL extends KeyAdapter{
+		
+		/**
+		 * Checks inputs that are pressed
+		 */
 		public void keyPressed(KeyEvent e) {
 			game.keyPressed(e);			
 		}
+		
+		
+		
+		/**
+		 * Checks inputs that are released
+		 */
 		public void keyReleased(KeyEvent e) {
 			game.keyReleased(e);
 		}

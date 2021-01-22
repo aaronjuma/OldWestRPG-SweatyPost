@@ -1,3 +1,10 @@
+/*
+ * Dialoguebox.java
+ * Controls Dialogue in Cutscenes
+ * Aaron Jumarang
+ * Jan 22 2021
+ * ICS4U
+ */
 package cutscene;
 
 import java.awt.Color;
@@ -16,12 +23,26 @@ public class DialogueBox extends GameObject{
 	Image textBox;
 	boolean activeQueue = false;
 	String text = "HELLO";
+	
+	
+	/**
+	 * Constructor
+	 * pre : none
+	 * post : DialogueBox object created
+	 */
 	public DialogueBox() {
 		super(0, 5, 1000, 100);
 		textBox = new ImageIcon("src/resources/dialogueBox.jpg").getImage();
 		
 	}
 	
+	
+	
+	/**
+	 * Draws text and the dialogue box onto screen
+	 * pre : none
+	 * post : text and dialogue box is drawn
+	 */
 	public void draw(Graphics g){
 		g.drawImage(textBox, getX(), getY(), width(), height(), null);
 		Graphics2D g2 = (Graphics2D) g;
@@ -40,12 +61,26 @@ public class DialogueBox extends GameObject{
         activeQueue = false;
 	}
 	
+	
+	
+	/**
+	 * Queues text onto screen
+	 * pre : none
+	 * post : text is queued
+	 */
 	public void queue(String text){
 		activeQueue = true;
 		this.text = text;
 		
 	}
 	
+	
+	
+	/**
+	 * Checks if queue is active
+	 * pre : none
+	 * post : true if queue is active, false if not
+	 */
 	public boolean isActive(){
 		return activeQueue;
 	}

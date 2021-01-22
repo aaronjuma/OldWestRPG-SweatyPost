@@ -1,3 +1,10 @@
+/*
+ * ReturnShifty.java
+ * Controls Return Shifty quest
+ * Scott Boyd
+ * Jan 22 2021
+ * ICS4U
+ */
 package quest;
 
 public class ReturnShifty extends Quest{

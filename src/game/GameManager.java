@@ -1,26 +1,23 @@
+/*
+ * GameManager.java
+ * Contains Bulk of Code to control the game
+ * Aaron Jumarang, Benji Magyar-Samoila, Scott Boyd
+ * Jan 22 2021
+ * ICS4U
+ */
+
 package game;
 
 import gui.DrawTextBox;
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
-
+import quest.QuestManager;
 import cutscene.Cutscene1;
-import cutscene.Cutscene2;
 import cutscene.CutsceneManager;
 import cutscene.DialogueBox;
-
 import npc.NPCManager;
-
-import quest.EscapeJail;
-import quest.FindShifty;
-import quest.HotelChange;
-import quest.KillEarps;
-import quest.QuestManager;
-import quest.ReturnShifty;
 import util.Music;
-
 import background.BackgroundControl;
 import character.Bullets;
 import character.Character;
@@ -35,7 +32,6 @@ public class GameManager {
 	Bullets bullet;
 	Character chara;
 	NPCManager npc;
-	
 	CutsceneManager cutscenes;
 	QuestManager quests;
 	DialogueBox dialogue;
@@ -45,6 +41,13 @@ public class GameManager {
 	boolean bulletActive;
 	
 	
+	
+	/**
+	 * Constructor
+	 * Initializes the game
+	 * pre : none
+	 * post : game starts
+	 */
 	public GameManager() {
 		chara = new Character(GAME_HEIGHT, GAME_WIDTH);
 		background = new BackgroundControl(chara.getDetails());
@@ -61,11 +64,23 @@ public class GameManager {
 	}
 	
 	
+	
+	/**
+	 * Returns current background image
+	 * pre : none
+	 * post : image returned
+	 */
 	public Image background() {
 		return background.getBackgroundImage();
 	}
 	
 	
+	
+	/**
+	 * Draws game objects onto screen
+	 * pre : none
+	 * post : objects are drawn
+	 */
 	public void draw(Graphics g){
 		chara.draw(g);
 		npc.draw(g);
@@ -78,6 +93,13 @@ public class GameManager {
 		objective.draw(g, 10, 10);
 	}
 	
+	
+	
+	/**
+	 * move game objects
+	 * pre : none
+	 * post : objects are moving
+	 */
 	public void move() {
 		if(cutscene != true) {
 			chara.move();
@@ -97,6 +119,12 @@ public class GameManager {
 	}
 	
 	
+	
+	/**
+	 * Checks for input
+	 * pre : none
+	 * post : action is performed based on input
+	 */
 	public void keyPressed(KeyEvent e) {
 		chara.keyPressed(e);
 		background.keyPressed(e);
@@ -111,12 +139,24 @@ public class GameManager {
 	}
 	
 	
+	
+	/**
+	 * Checks for input
+	 * pre : none
+	 * post : action is performed based on input
+	 */
 	public void keyReleased(KeyEvent e) {
 		chara.keyReleased(e);
 		cutscenes.keyReleased(e);
 	}
 	
 	
+	
+	/**
+	 * Storyboard controller for game
+	 * pre : none
+	 * post : game follows linear story
+	 */
 	public void check() {
 		
 		//Cutscene 1 - Sherrif Arrest

@@ -1,3 +1,11 @@
+/*
+ * EscapeJail.java
+ * Controls Escape Jail quest
+ * Scott Boyd
+ * Jan 22 2021
+ * ICS4U
+ */
+
 package quest;
 
 import java.awt.event.KeyEvent;

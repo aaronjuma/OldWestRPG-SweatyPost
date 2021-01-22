@@ -1,3 +1,11 @@
+/*
+ * Cutscene1.java
+ * Controls first cutscene
+ * Aaron Jumarang
+ * Jan 22 2021
+ * ICS4U
+ */
+
 package cutscene;
 
 import npc.NPC;
@@ -14,11 +22,24 @@ public class Cutscene1 extends Cutscene {
 			"I won't hesitate to kill you"
 	};
 	
+	
+	/**
+	 * Constructor
+	 * pre : none
+	 * post : Cutscene1 object created
+	 */
 	public Cutscene1(DialogueBox box) {
 		super(box);
 		setDialogue(dialogueList);
 	}
 	
+	
+	
+	/**
+	 * Loop code that controls cutscene
+	 * pre : none
+	 * post : cutscene is running
+	 */
 	public void check() {
 		if(sheriff.getX() < 400) {
 			moveSheriff();
@@ -30,10 +51,24 @@ public class Cutscene1 extends Cutscene {
 		}
 	}
 	
+	
+	
+	/**
+	 * Obtains sheriff NPC to control
+	 * pre : none
+	 * post : sheriff NPC is obtained
+	 */
 	public void getSheriff(NPCManager npc) {
 		sheriff = npc.getNPC(4);
 	}
 	
+	
+	
+	/**
+	 * Moves sheriff
+	 * pre : none
+	 * post : sheriff is moving
+	 */
 	public void moveSheriff() {
 		sheriff.setX(sheriff.getX()+2);
 	}

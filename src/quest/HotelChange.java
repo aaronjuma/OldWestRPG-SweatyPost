@@ -1,3 +1,10 @@
+/*
+ * HotelChange.java
+ * Controls Hotel Change quest
+ * Scott Boyd
+ * Jan 22 2021
+ * ICS4U
+ */
 package quest;
 
 import java.awt.event.KeyEvent;

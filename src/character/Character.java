@@ -1,3 +1,11 @@
+/*
+ * Character.java
+ * Code for the main character
+ * Aaron Jumarang
+ * Jan 22 2021
+ * ICS4U
+ */
+
 package character;
 
 import java.awt.*;
@@ -22,8 +30,13 @@ public class Character extends GameObject{
 	int direction = 1;
 	CharacterDetails details;
 	
-	int xOffest = 0;
 	
+	
+	/**
+	 * Constructor
+	 * pre : gameHeight and gameWidth > 0
+	 * post : character is created
+	 */
 	public Character(int gameHeight, int gameWidth) {
 		super(0,0,0,0);
 		gunRight = new ImageIcon("src/resources/RightDalton1.png").getImage();
@@ -82,14 +95,12 @@ public class Character extends GameObject{
 		if(dKey == true) {
 			if(details.getX() < gameWidth-details.getWidth()){
 				details.setDirection(1);
-//				guy = right;
 				xVelocity = speed;
 			}
 		}
 		if(aKey == true) {
 			if(details.getX() > 0){
 				details.setDirection(0);
-//				guy = left;
 				xVelocity = -speed;
 			}
 		}
@@ -99,6 +110,7 @@ public class Character extends GameObject{
 		
 		details.setPos(details.getX() + xVelocity, details.getY());
 	}
+	
 	
 	
 	/**
@@ -129,9 +141,15 @@ public class Character extends GameObject{
 		setWidth(details.getWidth());
 		
 		g2d.drawImage(guy, getX(), getY(), height(), width(), null);
-//		System.out.println(details.getX());
 	}
 	
+	
+	
+	/**
+	 * Return details of character
+	 * pre : none
+	 * post : details returned
+	 */
 	public CharacterDetails getDetails() {
 		return details;
 	}
