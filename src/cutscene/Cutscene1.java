@@ -31,6 +31,7 @@ public class Cutscene1 extends Cutscene {
 	public Cutscene1(DialogueBox box) {
 		super(box);
 		setDialogue(dialogueList);
+		setAnimation(true);
 	}
 	
 	
@@ -41,11 +42,12 @@ public class Cutscene1 extends Cutscene {
 	 * post : cutscene is running
 	 */
 	public void check() {
-		if(sheriff.getX() < 400) {
+		if(sheriff.getX() < 300) {
 			moveSheriff();
 		}
 		else{
 			if(currentDialogue < 5){
+				setAnimation(false);
 				box.queue(dialogueList[currentDialogue]);
 			}
 		}

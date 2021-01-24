@@ -14,6 +14,7 @@ public class Cutscene {
 	String[] dialogue;
 	public int currentDialogue;
 	boolean spaceClicked;
+	boolean characterMoving;
 	DialogueBox box;
 	
 	
@@ -61,7 +62,7 @@ public class Cutscene {
 	 */
 	public void checkInput(KeyEvent e){
 		if(e.getKeyCode()==KeyEvent.VK_SPACE) {
-			if(spaceClicked != true){
+			if(spaceClicked != true && characterMoving == false){
 				spaceClicked = true;
 				if(currentDialogue < dialogue.length){
 					++currentDialogue;
@@ -101,4 +102,25 @@ public class Cutscene {
 		
 	}
 	
+	
+	
+	/**
+	 * Makes sure that user cannot click space while there is an animationg going on
+	 * pre : none
+	 * post : sets animation to true or false
+	 */
+	public void setAnimation(boolean moving) {
+		characterMoving = moving;
+	}
+	
+	
+	
+	/**
+	 * Checks if there is an animation going on
+	 * pre : none
+	 * post : true if there is an animation, false if not
+	 */
+	public boolean isAnimation() {
+		return characterMoving;
+	}
 }

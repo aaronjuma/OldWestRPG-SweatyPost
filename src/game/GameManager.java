@@ -39,7 +39,7 @@ public class GameManager {
 	Music backMusic;
 	Music bulletSound;
 	boolean bulletActive;
-	
+	boolean gameOver;
 	
 	
 	/**
@@ -61,6 +61,7 @@ public class GameManager {
 		bulletSound = new Music("src/resources/gunshot.wav");
 		bulletActive = false;
 		quests = new QuestManager(chara.getDetails(), npc);
+		gameOver = false;
 	}
 	
 	
@@ -72,6 +73,17 @@ public class GameManager {
 	 */
 	public Image background() {
 		return background.getBackgroundImage();
+	}
+	
+	
+	
+	/**
+	 * Checks if game is done
+	 * pre : none
+	 * post : true if game is finished, false if not
+	 */
+	public boolean isGameOver() {
+		return gameOver;
 	}
 	
 	
@@ -303,12 +315,9 @@ public class GameManager {
 			cutscene = true;
 			cutscenes.check();
 			if(cutscenes.isDialogueDone() == true) {
-				++event;
+				bulletSound.play();
+				gameOver = true;
 			}
-		}
-		
-		if(event == 8){
-			
 		}
 	}
 	

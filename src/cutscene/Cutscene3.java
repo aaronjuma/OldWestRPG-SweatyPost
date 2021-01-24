@@ -27,6 +27,7 @@ public class Cutscene3 extends Cutscene {
 	public Cutscene3(DialogueBox box) {
 		super(box);
 		setDialogue(dialogueList);
+		setAnimation(false);
 	}
 	
 	
