@@ -51,7 +51,7 @@ public class DialogueBox extends GameObject{
 		
 		g2.setColor(Color.white);
 
-        for (String line : text.split("\n")){
+		for (String line : text.split("\n")){
 			g2.drawString(line, x1, (int) (y1 += g.getFontMetrics().getHeight()));
 		}
 		g2.setFont(new Font("Consolas",Font.PLAIN,10));
