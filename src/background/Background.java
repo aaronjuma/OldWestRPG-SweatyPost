@@ -32,10 +32,17 @@ public class Background implements Comparable{
 	}
 	
 	
+
+	/**
+	 * Constructor
+	 * pre : none
+	 * post : empty background object with ID created
+	 */
 	public Background(String ID){
 		this.ID = ID;
 	}
 	
+
 	
 	/**
 	 * Set the middle ext
@@ -210,7 +217,11 @@ public class Background implements Comparable{
 
 
 
-	@Override
+	/**
+	 * Compare to
+	 * pre : none
+	 * post : -1 if object is less, 0 if equal, 1 if greater
+	 */
 	public int compareTo(Object o) {
 		Background b = (Background)o;
 		return getID().compareTo(b.getID());
