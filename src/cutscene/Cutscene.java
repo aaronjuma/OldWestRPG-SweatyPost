@@ -66,6 +66,7 @@ public class Cutscene {
 				spaceClicked = true;
 				if(currentDialogue < dialogue.length){
 					++currentDialogue;
+					box.dequeue();
 				}
 			}
 		}

@@ -75,6 +75,17 @@ public class DialogueBox extends GameObject{
 	
 	
 	/**
+     * Sets the queue to inactive
+     * pre : none
+     * post : queue is inactive
+     */
+    public void dequeue() {
+        activeQueue = false;
+    }
+    
+    
+    
+	/**
 	 * Checks if queue is active
 	 * pre : none
 	 * post : true if queue is active, false if not
