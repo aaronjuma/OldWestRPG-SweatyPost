@@ -5,7 +5,6 @@
  * Jan 22 2021
  * ICS4U
  */
-
 package gui;
 
 import java.awt.Color;
@@ -19,7 +18,7 @@ public class DrawTextBox {
 	int boxHeight, boxWidth;
 	boolean hidden;
 	String text;
-	
+	int x = 0, y = 0;
 	
 	/**
 	 * Constructor
@@ -39,6 +38,37 @@ public class DrawTextBox {
 	 * post : textBox is drawn
 	 */
 	public void draw(Graphics g, int x, int y) {
+		if(hidden == false){
+			boxWidth = text.length()*14;
+			boxHeight = 100;
+			this.x = x;
+			this.y = y;
+			Graphics2D g2 = (Graphics2D) g;
+			g.setColor(Color.black);
+			g.fillRect(x, y, boxWidth, boxHeight);
+			Font font = new Font("Comic Sans MS",Font.BOLD,25);
+			FontRenderContext context = g2.getFontRenderContext();
+			g2.setFont(font);
+			int textWidth = (int) font.getStringBounds(text, context).getWidth();
+			LineMetrics ln = font.getLineMetrics(text, context);
+			int textHeight = (int) (ln.getAscent() + ln.getDescent());
+			int x1 = x + (boxWidth - textWidth)/2;
+			int y1 = (int)(y + (boxHeight + textHeight)/2 - ln.getDescent());
+			
+			g2.setColor(Color.yellow);
+			
+			g2.drawString(text, (int) x1, (int) y1);
+		}
+	}
+	
+	
+	
+	/**
+	 * Draws textbox
+	 * pre : none
+	 * post : textBox is drawn
+	 */
+	public void draw(Graphics g) {
 		if(hidden == false){
 			boxWidth = text.length()*14;
 			boxHeight = 100;
@@ -70,6 +100,18 @@ public class DrawTextBox {
 	 */
 	public void setText(String text){
 		this.text = text;
+	}
+	
+	
+	
+	/**
+	 * Sets positions of text box
+	 * pre : none
+	 * post : text box is set in position
+	 */
+	public void setPos(int x, int y){
+		this.x = x;
+		this.y = y;
 	}
 	
 	

@@ -1,21 +1,18 @@
 /*
  * CutsceneManager.java
- * Controls Cutscene
+ * Manages all the cutscenes
  * Aaron Jumarang
  * Jan 22 2021
  * ICS4U
  */
-
 package cutscene;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import util.Stack;
 
 public class CutsceneManager {
 
-	ArrayList<Cutscene> cutscenes;
-	int currentCutscene;
-	
+	Stack<Cutscene> cutscenes;
 	
 	/**
 	 * Constructor
@@ -23,11 +20,10 @@ public class CutsceneManager {
 	 * post : cutsceneManager object created
 	 */
 	public CutsceneManager(DialogueBox box) {
-		cutscenes = new ArrayList<Cutscene>();
-		cutscenes.add(new Cutscene1(box));
-		cutscenes.add(new Cutscene2(box));
-		cutscenes.add(new Cutscene3(box));
-		currentCutscene = 0;
+		cutscenes = new Stack<Cutscene>();
+		cutscenes.push(new Cutscene3(box));
+		cutscenes.push(new Cutscene2(box));
+		cutscenes.push(new Cutscene1(box));
 	}
 	
 	
@@ -38,7 +34,7 @@ public class CutsceneManager {
 	 * post : cutscene is running
 	 */
 	public void check() {
-		cutscenes.get(currentCutscene).check();
+		cutscenes.top().check();
 	}
 	
 	
@@ -49,7 +45,7 @@ public class CutsceneManager {
 	 * post : current cutscene is now the next cutscene
 	 */
 	public void nextCutscene() {
-		++currentCutscene;
+		cutscenes.pop();
 	}
 	
 	
@@ -60,7 +56,7 @@ public class CutsceneManager {
 	 * post : action is performed based on input
 	 */
 	public void checkInput(KeyEvent e){
-		cutscenes.get(currentCutscene).checkInput(e);
+		cutscenes.top().checkInput(e);
 	}
 	
 	
@@ -71,7 +67,7 @@ public class CutsceneManager {
 	 * post : action is performed based on input
 	 */
 	public void keyReleased(KeyEvent e) {
-		cutscenes.get(currentCutscene).keyReleased(e);
+		cutscenes.top().keyReleased(e);
 	}
 	
 	
@@ -82,7 +78,7 @@ public class CutsceneManager {
 	 * post : true if dialogue is done, false if not
 	 */
 	public boolean isDialogueDone() {
-		return cutscenes.get(currentCutscene).isDialogueDone();
+		return cutscenes.top().isDialogueDone();
 	}
 	
 	
@@ -94,6 +90,6 @@ public class CutsceneManager {
 	 * post : return cutscene1
 	 */
 	public Cutscene getCutscene1() {
-		return cutscenes.get(currentCutscene);
+		return cutscenes.top();
 	}
 }

@@ -7,61 +7,96 @@
  */
 package quest;
 
+import gui.DrawTextBox;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-
+import util.Queue;
 import npc.NPCManager;
-
 import character.CharacterDetails;
 
 public class QuestManager {
 
 	CharacterDetails details;
-	ArrayList<Quest> quests;
+	Queue<Quest> quests;
 	
-	int currentQuest;
 	
-	public QuestManager(CharacterDetails details, NPCManager npc) {
+	/**
+	 * Constructor
+	 * pre : none
+	 * post : Quest Manager created
+	 */
+	public QuestManager(CharacterDetails details, NPCManager npc, DrawTextBox helper) {
 		this.details = details;
-		quests = new ArrayList<Quest>();
-		currentQuest = 0;
-		quests.add(new EscapeJail());
-		quests.add(new FindShifty());
-		quests.add(new HotelChange());
-		quests.add(new KillEarps(npc));
-		quests.add(new ReturnShifty());
+		quests = new Queue<Quest>();
+		quests.enqueue(new EscapeJail(helper));
+		quests.enqueue(new FindShifty());
+		quests.enqueue(new HotelChange(helper));
+		quests.enqueue(new KillEarps(npc));
+		quests.enqueue(new ReturnShifty());
 	}
+	
+	
 	
 	/**
 	 * checks if a key is pressed
 	 * pre : none
-	 * post : sets a boolean value to the key
+	 * post : action performed based on key
 	 */
 	public void keyPressed(KeyEvent e) {
-		if(currentQuest == 0 || currentQuest == 2){
-			quests.get(currentQuest).checkInput(details, e);
-		}
+		quests.front().checkInput(details, e);
 	}
 	
 	
+	
+	/**
+	 * Checks if quest goal has been reached
+	 * pre : none
+	 * post : true if quest goal is reached, false if not
+	 */
 	public boolean goal() {
-		return quests.get(currentQuest).goal();
+		return quests.front().goal();
 	}
 	
 	
+	
+	/**
+	 * Goes to next Quest
+	 * pre : none
+	 * post : sets the quest to the next one in queue
+	 */
 	public void nextQuest() {
-		++currentQuest;
+		quests.dequeue();
 	}
 	
+	
+	
+	/**
+	 * Checks if quest is done
+	 * pre : none
+	 * post : true if quest is done, false if not
+	 */
 	public boolean isQuestDone() {
-		return quests.get(currentQuest).isQuestDone();
+		return quests.front().isQuestDone();
 	}
 	
+	
+	
+	/**
+	 * Finishes a quest
+	 * pre : none
+	 * post : quest is finished
+	 */
 	public void questFinished() {
-		quests.get(currentQuest).questFinished();
+		quests.front().questFinished();
 	}
 	
+	
+	
+	/**
+	 * Calls continuously to check on quest 
+	 * pre : none
+	 * post : quest is checked
+	 */
 	public void check(String ID) {
-		quests.get(currentQuest).check(ID);
+		quests.front().check(ID);
 	}
 }

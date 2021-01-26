@@ -1,11 +1,10 @@
 /*
- * Main.java
+ * CharacterDetails.java
  * Allows other classes to manipulate the character
  * Aaron Jumarang
  * Jan 22 2021
  * ICS4U
  */
-
 package character;
 
 public class CharacterDetails {

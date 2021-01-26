@@ -5,7 +5,6 @@
  * Jan 22 2021
  * ICS4U
  */
-
 package cutscene;
 
 import npc.NPC;
@@ -15,11 +14,11 @@ public class Cutscene1 extends Cutscene {
 
 	NPC sheriff;
 	String[] dialogueList = {
-			"So, so, so. I see a new face in town.\nI'm the sheriff of this town",
-			"I got word from our neighbours from the East that\n some hooligans fled Millworth",
-			"From what I wreckon, you look like you was from the East",
-			"Just to be safe, come with me, don't bother resisting",
-			"I won't hesitate to kill you"
+			"So, so, so. You look like you was new in town. I'm the sheriff.",
+			"I got word from our neighbours from the East that\n some hooligans fled Millworth.",
+			"From what I wreckon, you look like you was from the East.",
+			"I reckon you come with me, don't bother resisting.",
+			"I won't hesitate to kill you."
 	};
 	
 	

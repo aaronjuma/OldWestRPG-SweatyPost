@@ -14,7 +14,6 @@ import javax.swing.ImageIcon;
 
 import util.GameObject;
 
-
 public class Character extends GameObject{
 	int speed = 10;
 	int xVelocity = 0;
@@ -29,7 +28,7 @@ public class Character extends GameObject{
 	int gameHeight, gameWidth;
 	int direction = 1;
 	CharacterDetails details;
-	
+	String dir = "src/resources/character/";
 	
 	
 	/**
@@ -39,10 +38,10 @@ public class Character extends GameObject{
 	 */
 	public Character(int gameHeight, int gameWidth) {
 		super(0,0,0,0);
-		gunRight = new ImageIcon("src/resources/RightDalton1.png").getImage();
-		gunLeft = new ImageIcon("src/resources/LeftDalton1.png").getImage(); 
-		prisonRight = new ImageIcon("src/resources/RightPrisonDalton.png").getImage();
-		prisonLeft = new ImageIcon("src/resources/LeftPrisonDalton.png").getImage();
+		gunRight = new ImageIcon(dir + "RightDalton1.png").getImage();
+		gunLeft = new ImageIcon(dir + "LeftDalton1.png").getImage(); 
+		prisonRight = new ImageIcon(dir + "RightPrisonDalton.png").getImage();
+		prisonLeft = new ImageIcon(dir + "LeftPrisonDalton.png").getImage();
 	
 		right = gunRight;
 		guy = right;

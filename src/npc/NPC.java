@@ -5,7 +5,6 @@
  * Jan 22 2021
  * ICS4U
  */
-
 package npc;
 
 import java.awt.Graphics;

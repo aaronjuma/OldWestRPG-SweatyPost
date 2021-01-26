@@ -5,13 +5,12 @@
  * Jan 22 2021
  * ICS4U
  */
-
 package background;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class Background {
+public class Background implements Comparable{
 
 	Image image;
 	int midExitX, midY, charHeight, charWidth;
@@ -32,6 +31,10 @@ public class Background {
 		this.ID = ID;
 	}
 	
+	
+	public Background(String ID){
+		this.ID = ID;
+	}
 	
 	
 	/**
@@ -203,5 +206,13 @@ public class Background {
 	 */
 	public String toString() {
 		return ID;
+	}
+
+
+
+	@Override
+	public int compareTo(Object o) {
+		Background b = (Background)o;
+		return getID().compareTo(b.getID());
 	}
 }

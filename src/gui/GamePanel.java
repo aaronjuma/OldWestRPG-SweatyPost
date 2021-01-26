@@ -5,14 +5,12 @@
  * Jan 22 2021
  * ICS4U
  */
-
 package gui;
 
 import game.GameManager;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
 
 public class GamePanel extends JPanel implements Runnable{
 	static final int GAME_WIDTH = 1000;
@@ -56,9 +54,9 @@ public class GamePanel extends JPanel implements Runnable{
 		g.drawImage(game.background(), 0, 0, 1000, 750, null);
 		game.draw(g);
 		if(game.isGameOver()){
-			g.drawImage(new ImageIcon("src/resources/blood.jpg").getImage(), 0, 0, 1000, 750, null);
+			g.drawImage(new ImageIcon("src/resources/backgrounds/blood.jpg").getImage(), 0, 0, 1000, 750, null);
 			if(bloodSplat == true){
-				g.drawImage(new ImageIcon("src/resources/TheEnd.jpg").getImage(), 0, 0, 1000, 750, null);
+				g.drawImage(new ImageIcon("src/resources/backgrounds/TheEnd.jpg").getImage(), 0, 0, 1000, 750, null);
 			}
 		}
 	}
@@ -106,7 +104,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void run() {
 		//game loop
 		long lastTime = System.nanoTime();
-		double amountOfTicks =60.0;
+		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		while(true) {
@@ -131,7 +129,7 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(8000);
 			JOptionPane.showMessageDialog(this,
 				    "THE END\nThank you for Playing Sweaty Post" + "\nPress OK to Quit the Game");
 			System.exit(0);

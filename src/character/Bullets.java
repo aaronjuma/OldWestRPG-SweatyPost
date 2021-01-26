@@ -5,13 +5,11 @@
  * Jan 22 2021
  * ICS4U
  */
-
 package character;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import util.GameObject;
-
 
 public class Bullets extends GameObject{
 

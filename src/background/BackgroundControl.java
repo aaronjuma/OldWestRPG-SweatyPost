@@ -5,7 +5,6 @@
  * Jan 22 2021
  * ICS4U
  */
-
 package background;
 
 import gui.DrawTextBox;
@@ -13,18 +12,20 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import util.LinearSearch;
+import util.Search;
+import util.Sort;
 import character.CharacterDetails;
 
 public class BackgroundControl {
 
 	Background currentImage;
-	ArrayList<Background> backgrounds = new ArrayList<Background>();
+	ArrayList<Background> backgrounds;
 	CharacterDetails details;
 	int currentBackgroundID;
 	DrawTextBox textBox;
 	boolean requestChange = false;
-	
+	boolean showExit = false;
+	String dir = "src/resources/backgrounds/";
 	
 	/**
 	 * Constructor
@@ -32,15 +33,16 @@ public class BackgroundControl {
 	 * post : BackgroundControl object created
 	 */
 	public BackgroundControl(CharacterDetails details) {
-		Background Jail = new Background("src/resources/Jail.jpg", 250, 250, 350, "JL"); 
-		Background Bank = new Background("src/resources/Bank.jpg", 200, 200, 500, "BK"); 
-		Background Saloon = new Background("src/resources/Saloon.png", 200, 200, 500, "SL");
-		Background Hotel = new Background("src/resources/Hotel.png", 200, 200, 530, "HT");
-		Background Railway = new Background("src/resources/Railway.jpg", 200, 200, 500, "RW");
+		backgrounds = new ArrayList<Background>();
+		Background Jail = new Background(dir + "Jail.jpg", 250, 250, 350, "JL"); 
+		Background Bank = new Background(dir + "Bank.jpg", 200, 200, 500, "BK"); 
+		Background Saloon = new Background(dir + "Saloon.png", 200, 200, 500, "SL");
+		Background Hotel = new Background(dir + "Hotel.png", 200, 200, 530, "HT");
+		Background Railway = new Background(dir + "Railway.jpg", 200, 200, 500, "RW");
 		
-		Background JailCell = new Background("src/resources/JailCell.png", 400, 400, 200, "JC");
-		Background Bar = new Background("src/resources/Bar.jpg", 300, 300, 300, "BR");
-		Background HotelRoom = new Background("src/resources/HotelRoom.png", 300, 300, 300, "HR");
+		Background JailCell = new Background(dir + "JailCell.png", 400, 400, 200, "JC");
+		Background Bar = new Background(dir + "Bar.jpg", 300, 300, 300, "BR");
+		Background HotelRoom = new Background(dir + "/HotelRoom.png", 300, 300, 300, "HR");
 		
 		JailCell.setMid(Jail, 570);
 		Jail.setRight(Bank);
@@ -74,6 +76,9 @@ public class BackgroundControl {
 		details.setDimensions(currentImage.getHeight(), currentImage.getWidth());
 		textBox = new DrawTextBox();
 		switchBackground("BR");
+		
+		//Sorts array
+		Sort.mergesort(backgrounds, 0, backgrounds.size()-1);
 	}
 	
 	
@@ -107,8 +112,7 @@ public class BackgroundControl {
 	 * post : background changed
 	 */
 	public void switchBackground(String ID) {
-		LinearSearch<Background> search = new LinearSearch<Background>(backgrounds);
-		int index = search.searchFor(ID);
+		int index = Search.binarySearch(backgrounds, 0, backgrounds.size()-1, new Background(ID));
 		if(index >= 0){
 			currentImage = backgrounds.get(index);
 			details.setPos(currentImage.getExitX(), currentImage.getMidY());
@@ -197,11 +201,33 @@ public class BackgroundControl {
 	 * pre : none
 	 * post : text drawn
 	 */
+	public void showText(boolean show) {
+		showExit = show;
+	}
+	
+	
+	
+	/**
+	 * Draws text
+	 * pre : none
+	 * post : text drawn
+	 */
 	public void drawText(Graphics g){
-//		if(currentImage.exist(2)){
-//			if(currentImage.getExitX()-75 < details.getX() && currentImage.getExitX()+75 > details.getX()){
-//				textBox.draw(g, "Press E to enter!", currentImage.getExitX(), 100);
-//			}
-//		}
+		if(currentImage.exist(2)){
+			if(currentImage.getExitX()-75 < details.getX() && currentImage.getExitX()+75 > details.getX()){
+				if(showExit == true){
+					textBox.setText("Press E to enter!");
+					textBox.setPos(currentImage.getExitX(), 150);
+					textBox.show();
+				}
+				else{
+					textBox.hide();
+				}
+			}
+			else{
+				textBox.hide();
+			}
+		}
+		textBox.draw(g);
 	}
 }

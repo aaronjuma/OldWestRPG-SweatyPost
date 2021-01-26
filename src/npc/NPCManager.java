@@ -1,6 +1,6 @@
 /*
  * NPCManager.java
- * NPC object
+ * Manages NPCs
  * Benji Magyar-Samoila
  * Jan 22 2021
  * ICS4U
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class NPCManager {
 	NPC shifty;
 	ArrayList<NPC> npclist;
-	
+	String dir = "src/resources/npc/";
 	
 	/**
 	 * Constructor
@@ -23,7 +23,7 @@ public class NPCManager {
 	public NPCManager() {
 		
 		//Adding Shifty
-		shifty = new NPC("src/resources/LeftShifty.png");
+		shifty = new NPC(dir + "LeftShifty.png");
 		shifty.updateSize(300, 300);
 		shifty.position(700, 300);
 		npclist = new ArrayList<NPC>();
@@ -32,13 +32,13 @@ public class NPCManager {
 		
 		//Adding Earps
 		for(int i = 1; i <= 3; ++i){
-			npclist.add(new NPC("src/resources/Earps" + i + ".png"));
+			npclist.add(new NPC(dir +  "Earps" + i + ".png"));
 			npclist.get(i).updateSize(200, 200);
 			npclist.get(i).position(200+(i*200), 500);
 			npclist.get(i).hide();
 		}
 		
-		npclist.add(new NPC("src/resources/Sheriff.png"));
+		npclist.add(new NPC(dir + "Sheriff.png"));
 		npclist.get(4).updateSize(300, 300);
 		npclist.get(4).position(0, 300);
 	}

@@ -5,8 +5,6 @@
  * Jan 22 2021
  * ICS4U
  */
-
-
 import gui.GameFrame;
 
 public class Main {

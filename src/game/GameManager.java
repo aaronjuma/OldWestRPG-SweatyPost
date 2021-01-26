@@ -5,7 +5,6 @@
  * Jan 22 2021
  * ICS4U
  */
-
 package game;
 
 import gui.DrawTextBox;
@@ -26,7 +25,7 @@ public class GameManager {
 	static final int GAME_WIDTH = 1000;
 	static final int GAME_HEIGHT = (int)((GAME_WIDTH * 3)/4);
 	boolean cutscene = false;
-	int event = 0;
+	int event = -1;
 	
 	BackgroundControl background;
 	Bullets bullet;
@@ -36,6 +35,7 @@ public class GameManager {
 	QuestManager quests;
 	DialogueBox dialogue;
 	DrawTextBox objective;
+	DrawTextBox questHelper;
 	Music backMusic;
 	Music bulletSound;
 	boolean bulletActive;
@@ -54,13 +54,15 @@ public class GameManager {
 		npc = new NPCManager();
 		npc.hide(0);
 		objective = new DrawTextBox();
+		questHelper = new DrawTextBox();
+		questHelper.hide();
 		dialogue = new DialogueBox();
 		cutscenes = new CutsceneManager(dialogue);
-		backMusic = new Music("src/resources/backgroundMusic.wav");
+		backMusic = new Music("src/resources/music/backgroundMusic.wav");
 		backMusic.play();
-		bulletSound = new Music("src/resources/gunshot.wav");
+		bulletSound = new Music("src/resources/music/gunshot.wav");
 		bulletActive = false;
-		quests = new QuestManager(chara.getDetails(), npc);
+		quests = new QuestManager(chara.getDetails(), npc, questHelper);
 		gameOver = false;
 	}
 	
@@ -103,6 +105,8 @@ public class GameManager {
 			dialogue.draw(g);
 		}
 		objective.draw(g, 10, 10);
+		questHelper.draw(g);
+		background.drawText(g);
 	}
 	
 	
@@ -139,7 +143,9 @@ public class GameManager {
 	 */
 	public void keyPressed(KeyEvent e) {
 		chara.keyPressed(e);
-		background.keyPressed(e);
+		if(cutscene == false){
+			background.keyPressed(e);
+		}
 		quests.keyPressed(e);
 		if(e.getKeyCode()==KeyEvent.VK_Q && bulletActive == true) {
 			if(chara.getDetails().getJail() == false && bullet == null){
@@ -171,10 +177,16 @@ public class GameManager {
 	 */
 	public void check() {
 		
+		//Initialize
+		if(event == -1){
+			++event;
+			background.switchBackground("BR");
+		}
+		
 		//Cutscene 1 - Sherrif Arrest
 		if (event == 0){
 			cutscene = true;
-			background.switchBackground("BR");
+			background.showText(false);
 			chara.getDetails().setPos(700, chara.getDetails().getY());
 			chara.getDetails().setDirection(0);
 			Cutscene1 temp = (Cutscene1)cutscenes.getCutscene1();
@@ -194,7 +206,9 @@ public class GameManager {
 			objective.setText("New Objective: Escape Jail" +
 								"(Hint: Press find a key)");		
 			objective.show();
+			quests.check("JC");
 			if(quests.goal() == true){
+				background.showText(true);
 				objective.setText("New Objective: Key found! Now escape jail cell");
 				background.move();
 				if(background.getBackground().getID().equals("JL")){
@@ -204,7 +218,6 @@ public class GameManager {
 			if(quests.isQuestDone() == true){
 				++event;
 				quests.nextQuest();
-				System.out.println("Quest is finished");
 			}
 		}
 		
@@ -219,7 +232,7 @@ public class GameManager {
 			}
 			if(quests.isQuestDone() == true){
 				++event;
-				System.out.println("Quest Done");
+				background.showText(false);
 				cutscenes.nextCutscene();
 			}
 		}
@@ -232,6 +245,7 @@ public class GameManager {
 			if(cutscenes.isDialogueDone() == true) {
 				++event;
 				quests.nextQuest();
+				background.showText(true);
 			}
 		}
 		
@@ -253,7 +267,6 @@ public class GameManager {
 			}
 			if(quests.isQuestDone() == true) {
 				++event;
-				System.out.println("Quest is finished");
 				bulletActive = true;
 				quests.nextQuest();
 			}
@@ -278,7 +291,6 @@ public class GameManager {
 							npc.hide(i);
 							npc.getNPC(i).die();
 							bullet = null;
-							System.out.println(npc.getNPC(i).dead());
 						}
 					}
 				}
@@ -288,7 +300,6 @@ public class GameManager {
 			}
 			if(quests.isQuestDone()){
 				++event;
-				System.out.println("Quest Done");
 				quests.nextQuest();
 			}
 		}
@@ -304,8 +315,9 @@ public class GameManager {
 			}
 			if(quests.isQuestDone() == true){
 				++event;
-				System.out.println("Quest Done");
 				cutscenes.nextCutscene();
+				background.showText(false);
+				chara.getDetails().setDirection(1);
 			}
 		}
 		
